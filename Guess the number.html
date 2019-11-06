@@ -1,0 +1,117 @@
+<div id="game">
+	<h2>Отгатнете числото</h2>
+	<p>Предположете число от 1 до 999 и натиснете SUBMIT</p>
+	<input type="number" id="input" placeholder="Write your guess here...">
+	<button>Submit</button>
+	<p class="message"></p>
+  </div>
+  <style>
+body {
+  font-family: Helvetica;
+  background-color: #f5f5f5;
+  display: flex;
+}
+
+#game {
+  margin: 0 auto;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  background: #fcad26;
+  font-size: 14px;
+  font-weight: 900;
+	color: white;
+  text-transform: uppercase;
+  padding: 10px 10px;
+	box-shadow: 0px 6px #efa424;
+  border-radius: 10px;
+}
+
+button:hover {
+	box-shadow: 0 5px #efa424;
+}
+
+button:active {
+	box-shadow: 0 1px #efa424;
+}
+
+[type="number"] {
+  padding: 6px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 16px;
+	box-shadow: 0 5px #efa424;
+  margin-right: 5px;
+}
+
+[type="number"]:focus {
+  border: 2px solid #fcad26;
+}
+
+p.message {
+  margin-top: 25px;
+}
+  </style>
+  <script>
+const body = document.querySelector('body');
+const input = document.querySelector('#input');
+const button = document.querySelector('button');
+const message = document.querySelector('.message');
+
+const correctAnswer = Math.floor(Math.random() * 999) + 1;
+let leftGuesses = 10;
+
+const warningMessage = function(text, color) { 
+  body.style.backgroundColor = color;
+  message.textContent = text;
+};
+
+const refreshThePage = function() {
+  window.location.href = window.location.href;
+}
+
+game.addEventListener('mousedown', function(event) {
+  if (event.target.textContent === 'Play Again') {
+    refreshThePage();
+  }
+});
+
+button.addEventListener('click', function() {
+  if (input.value !== '') {
+    let guess = parseInt(input.value);
+    leftGuesses--;
+
+    if ((guess < 1 || guess > 999) && leftGuesses > 0) {
+      warningMessage(`Enter a number from 1 to 999. ${leftGuesses} guesses left.`, 'yellow');
+      input.value = '';
+    } else if (guess === correctAnswer) {
+      input.disabled = true;
+      warningMessage(`YOU WON!!! :) Correct answer: ${guess}`, 'green');
+      button.textContent = 'Play Again';
+    } else if (guess > correctAnswer && leftGuesses > 0) {
+      warningMessage(`TOO HIGH :| ${leftGuesses} guesses left.`, 'yellow');
+      input.value = '';
+	} else if (guess < correctAnswer && leftGuesses > 0) {
+      warningMessage(`TOO LOW :| ${leftGuesses} guesses left.`, 'yellow');
+      input.value = '';
+    } else if (leftGuesses <= 0) {
+      input.disabled = true;
+      warningMessage(`YOU LOST!!! :( Correct answer: ${correctAnswer}`, 'red');
+      button.textContent = 'Play Again';
+    } else {
+      alert('Something went wrong!!! :(');
+    }
+  }
+});
+  </script>
