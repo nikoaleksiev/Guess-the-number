@@ -1,26 +1,31 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Guess the number</title>
-</head>
-<body>
-<div id="game">
+<title>Отгатни числото</title>
+</head><div id="game">
 	<h2>Отгатнете числото</h2>
 	<p>Предположете число от 1 до 999 и натиснете SUBMIT</p>
-	<input type="number" id="input" placeholder="Write your guess here...">
+	<input type="number" id="input" placeholder="Въведете числото тук..."></br>
 	<button>Submit</button>
 	<p class="message"></p>
   </div>
   <style>
 body {
   font-family: Helvetica;
-  background-color: #f5f5f5;
-  display: flex;
+  background-color: #DCDCDC;
+  
 }
 
 #game {
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
 }
+
 
 h2 {
   text-transform: uppercase;
@@ -103,13 +108,13 @@ button.addEventListener('click', function() {
       input.value = '';
     } else if (guess === correctAnswer) {
       input.disabled = true;
-      warningMessage(`YOU WON!!! :) Correct answer: ${guess}`, 'green');
+      warningMessage(`YOU WON!!! :) Correct answer: ${guess}`, '');
       button.textContent = 'Play Again';
     } else if (guess > correctAnswer && leftGuesses > 0) {
-      warningMessage(`TOO HIGH :| ${leftGuesses} guesses left.`, 'yellow');
+      warningMessage(`TOO HIGH :| ${leftGuesses} guesses left.`, '');
       input.value = '';
 	} else if (guess < correctAnswer && leftGuesses > 0) {
-      warningMessage(`TOO LOW :| ${leftGuesses} guesses left.`, 'yellow');
+      warningMessage(`TOO LOW :| ${leftGuesses} guesses left.`, '');
       input.value = '';
     } else if (leftGuesses <= 0) {
       input.disabled = true;
@@ -121,5 +126,5 @@ button.addEventListener('click', function() {
   }
 });
   </script>
-</body>
-</html>
+  </html>
+</head>
